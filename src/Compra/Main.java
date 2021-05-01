@@ -1,6 +1,7 @@
 package Compra;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.text.DecimalFormat;
 import java.util.Scanner;
 public class Main {
 
@@ -19,11 +20,12 @@ public static void main(String[] args) {
 	double valorUnitario1, valorUnitario2;		
 	
 	//Declaracion de variables para un Comprador.
-	String razonSocial;
-	String domicilio;
+	String razonSocial, domicilio;
 	
 	//Declaracion e inicializacion de las variables total y subtotal y contador referente a la compra.
-	double subtotal, total; 
+	double subtotal, total, valorIVA; 
+	
+	DecimalFormat d = new DecimalFormat("##.00");
 	
 	Date fecha= new Date();		
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -64,7 +66,9 @@ public static void main(String[] args) {
    	 
    	 subtotal = subtotal + (valorUnitario2 * cantidad2);
    	 
-   	 System.out.println("Producto agregado exitosamente");
+   	 System.out.println("Productos agregados exitosamente");
+   	 
+   	 valorIVA = subtotal * IVA;
    	 
    	 System.out.println("Carga finalizada. A continuacion vera el detalle de su compra");				 
 	 System.out.println("*****************************************");
@@ -74,12 +78,12 @@ public static void main(String[] args) {
 	 System.out.println("Domicilio: "+domicilio);
 	 System.out.println("********************************************************************************************************************");
 	 System.out.println("Cant.     |Descripcion               |P. Unit.     |P.Total");
-	 System.out.println(cantidad1 + "      |" + descripcion1 + "            |" + valorUnitario1 + "     |" + (valorUnitario1 + IVA));
-	 System.out.println(cantidad2 + "      |" + descripcion2 + "            |" + valorUnitario2 + "     |" + (valorUnitario2 + IVA));
+	 System.out.println(cantidad1 + "        |" + descripcion1 + "                      |" + d.format(valorUnitario1) + "         |" + d.format((valorUnitario1 + IVA)));
+	 System.out.println(cantidad2 + "        |" + descripcion2 + "                      |" + d.format(valorUnitario2) + "         |" + d.format((valorUnitario2 + IVA)));
 	 System.out.println("*****************************************");
-	 System.out.println("VALOR IVA: " + (subtotal * IVA));
-	 System.out.println("SUBTOTAL SIN IVA: " + subtotal);
-	 System.out.println("TOTAL: " + (subtotal + IVA));				 
+	 System.out.println("VALOR IVA: " + d.format(valorIVA));
+	 System.out.println("SUBTOTAL SIN IVA: " + d.format(subtotal));
+	 System.out.println("TOTAL: " + d.format((subtotal + valorIVA)));				 
 	 System.out.println("********************************************************************************************************************");
       }
 }
