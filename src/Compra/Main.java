@@ -77,10 +77,10 @@ public static void main(String[] args) {
 	 System.out.println("Razon Social: "+razonSocial);
 	 System.out.println("Domicilio: "+domicilio);
 	 System.out.println("********************************************************************************************************************");
-	 System.out.println("Cant.     |Descripcion               |P. Unit.     |P.Total");
-	 System.out.println(cantidad1 + "        |" + descripcion1 + "                      |" + d.format(valorUnitario1) + "         |" + d.format((valorUnitario1 + IVA)));
-	 System.out.println(cantidad2 + "        |" + descripcion2 + "                      |" + d.format(valorUnitario2) + "         |" + d.format((valorUnitario2 + IVA)));
-	 System.out.println("*****************************************");
+	 System.out.println("Cant.\t|Descripcion\t|P. Unit.\t|P.Total");
+	 System.out.println(cantidad1 + "\t|" + descripcion1 + "      \t|" + d.format(valorUnitario1) + "\t|" + d.format((valorUnitario1 + IVA)));
+	 System.out.println(cantidad2 + "\t|" + descripcion2 + "      \t|" + d.format(valorUnitario2) + "\t|" + d.format((valorUnitario2 + IVA)));
+	 System.out.println("********************************************************************************************************************");
 	 System.out.println("VALOR IVA: " + d.format(valorIVA));
 	 System.out.println("SUBTOTAL SIN IVA: " + d.format(subtotal));
 	 System.out.println("TOTAL: " + d.format((subtotal + valorIVA)));				 
