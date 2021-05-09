@@ -8,8 +8,8 @@ import java.util.Scanner;
 public class lecturaNproductos {
 
 	public static void main(String[] args) {
-		// Ingresar los datos de una compra (2 productos),
-		// y los datos del comprador, para emitir la factura de compra.
+		// Ingresar los datos de una compra (con n productos),
+		// y para n compradores, para emitir la factura de compra.
 		Scanner scan = new Scanner(System.in);
 				
 
