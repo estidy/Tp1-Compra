@@ -11,9 +11,9 @@ public class lecturaNproductos {
 		// Ingresar los datos de una compra (con n productos),
 		// y para n compradores, para emitir la factura de compra.
 		Scanner scan = new Scanner(System.in);
-		
+		String pregunta;
 		//Evaluar si la caja no esta vacia
-		String pregunta = "Hay compradores en la caja? s/n.";
+		pregunta = "Hay compradores en la caja? s/n.";
 		while(respuestaCorrecta(scan, pregunta)) {
 			
 			// Procesar comprador
@@ -21,12 +21,13 @@ public class lecturaNproductos {
 			
 			//Evaluar si hay productos en la caja para iniciar la compra.
 			String productos;
-			while(hayProductos) {
+			pregunta = "Hay productos en la caja? s/n.";
+			while(respuestaCorrecta(scan, pregunta)){
 				//Procesar productos
 				String producto = leerProducto(scan);
 				productos += (producto + "-");
 			}
-			if(!(hayProductos(scan)))
+			if(!respuestaCorrecta(scan, pregunta)
 				 System.out.println("No hay productos para iniciar la compra");
 			
 			// Imprimir factura
