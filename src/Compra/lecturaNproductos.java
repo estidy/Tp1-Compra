@@ -30,24 +30,26 @@ public class lecturaNproductos {
 		String pregunta;
 		
 		//Evaluar si la caja no esta vacia
+		
 		pregunta = "Hay compradores en la caja? s/n.";
-		while(respuestaCorrecta(scan, pregunta)) {
-			
+		boolean r = ingresarRespuesta(scan, pregunta);
+		while(r) {			
 			// Procesar comprador
 			System.out.println("************DATOS DEL COMPRADOR************"); 
+			scan.nextLine();
 			razonSocial = leerRazonSocial(scan);
 			domicilio = leerDomicilio(scan);
 			
 			//Evaluar si hay productos en la caja para iniciar la compra.
 
-			pregunta = "Hay productos en la caja? s/n.";
+			pregunta = "Hay productos en la caja? s/n.";			
+			r = ingresarRespuesta(scan, pregunta);
 			String productos="";
-			
-			while(respuestaCorrecta(scan, pregunta)){
+			while(r){
 				//Procesar productos
 				System.out.println("************DATOS DEL PRODUCTO************"); 
-				
-				descripcion = leerDescripcion(scan);
+				scan.nextLine();
+				descripcion = leerDescripcion(scan);				
 				cantidad = leerCantidad(scan);				
 			    scan.nextLine();
 			    valorUnitario = leerValorUnitario(scan);
@@ -55,29 +57,36 @@ public class lecturaNproductos {
 			    //calculo del subtotal valor sin IVA
 			    calcularSubtotal(cantidad, valorUnitario);
 			    
-				productos += (cantidad + "\t|" + descripcion + "      \t|" + d.format(valorUnitario) + "\t|" + d.format((valorUnitario + IVA))+"\n");
+				productos += (cantidad + "\t|" + descripcion + "      \t|" + d.format(valorUnitario) + "      \t|" + d.format((valorUnitario + IVA))+"\n");
+				
+				r = ingresarRespuesta(scan, pregunta);
 			}
 			// Imprimir factura
 			imprimirFactura(razonSocial, domicilio, productos);
-			if(!respuestaCorrecta(scan, pregunta))
-				 System.out.println("No hay productos para iniciar la compra");		
-			
+			if(!r) {
+				 System.out.println("compra finalizada");	
+			}
+			pregunta = "Hay compradores en la caja? s/n.";
+			r = ingresarRespuesta(scan, pregunta);	
 		}
-		if(!respuestaCorrecta(scan, pregunta))
+		if(!r) {
 			 System.out.println("No hay compradores en la caja - CAJA VACIA");
+		}
 				
 	}
 	
 	//métodos
 	
-	private static boolean respuestaCorrecta(Scanner scan, String pregunta) {
+	private static boolean ingresarRespuesta(Scanner scan, String pregunta) {
 		System.out.println("\n" + pregunta + "\n");
-		char respuesta= scan.next().charAt(0);	
+		char respuesta= scan.next().charAt(0);
+		respuesta = Character.toLowerCase(respuesta); // Se aplica esta funcion para que, el usuario ingrese como respuesta s/S/n/N. Esta funcion pone a minúscula la respuesta del usuario.
 		if(opcionValida(respuesta)) {
 			return((respuesta == 's')?true:false);
 		}
 		else {
-			return respuestaCorrecta(scan, pregunta);
+			System.out.println("La opcion ingresada es incorrecta(valores validos:s/n) \n vuelva a intentarlo...");
+			return(ingresarRespuesta(scan,pregunta));
 		}
 	}
 	
@@ -113,7 +122,7 @@ public class lecturaNproductos {
 	}
 	
 	private static double calcularValorIVA(){
-		return (subtotal + IVA);
+		return (subtotal * IVA);
 	}
 	
 	public static void imprimirFactura(String razonSocial, String domicilio, String productos) {
@@ -126,6 +135,7 @@ public class lecturaNproductos {
 		 System.out.println("********************************************************************************************************************");
 		 System.out.println("Cant.\t|Descripcion\t|P. Unit.\t|P.Total");
 		 System.out.println(productos);
+		 System.out.println("********************************************************************************************************************");
 		 System.out.println("VALOR IVA: " + d.format(valorIVA));
 		 System.out.println("SUBTOTAL SIN IVA: " + d.format(subtotal));
 		 System.out.println("TOTAL: " + d.format((subtotal + valorIVA)));				 
