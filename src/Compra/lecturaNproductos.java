@@ -37,8 +37,8 @@ public class lecturaNproductos {
 			// Procesar comprador
 			System.out.println("************DATOS DEL COMPRADOR************"); 
 			scan.nextLine();
-			razonSocial = leerRazonSocial(scan);
-			domicilio = leerDomicilio(scan);
+			razonSocial = leerString(scan, "Razon Social: ");
+			domicilio = leerString(scan, "Domicilio: ");
 			
 			//Evaluar si hay productos en la caja para iniciar la compra.
 
@@ -49,7 +49,7 @@ public class lecturaNproductos {
 				//Procesar productos
 				System.out.println("************DATOS DEL PRODUCTO************"); 
 				scan.nextLine();
-				descripcion = leerDescripcion(scan);				
+				descripcion = leerString(scan, "Descripcion: ");				
 				cantidad = leerCantidad(scan);				
 			    scan.nextLine();
 			    valorUnitario = leerValorUnitario(scan);
@@ -57,7 +57,7 @@ public class lecturaNproductos {
 			    //calculo del subtotal valor sin IVA
 			    calcularSubtotal(cantidad, valorUnitario);
 			    
-				productos += (cantidad + "\t|" + descripcion + "      \t|" + d.format(valorUnitario) + "      \t|" + d.format((valorUnitario + IVA))+"\n");
+				productos += (cantidad + "\t\t|" + descripcion + "          \t\t|" + d.format(valorUnitario) + "    \t\t|" + d.format((valorUnitario + IVA))+"\n");
 				
 				r = ingresarRespuesta(scan, pregunta);
 			}
@@ -94,20 +94,11 @@ public class lecturaNproductos {
 			return((respuesta == 's' || respuesta == 'n')?true:false);
 	}
 	
-	private static String leerRazonSocial(Scanner scan){
-		 System.out.println("Razon Social: "); 
+	private static String leerString(Scanner scan, String msj){
+		 System.out.println("\n" + msj + "\n"); 
 	     return(scan.nextLine());			 	             
 	}
 	
-	private static String leerDomicilio(Scanner scan){
-	     System.out.println("Domicilio: "); 
-	    return( scan.nextLine());
-	}
-	
-	private static String leerDescripcion(Scanner scan){				 
-		 System.out.println("Descripcion: "); 
-	   	 return (scan.nextLine());
-	}
 	private static int leerCantidad(Scanner scan){
 	   	 System.out.println("Cantidad: "); 
 	   	 return (scan.nextInt());
@@ -127,13 +118,13 @@ public class lecturaNproductos {
 	
 	public static void imprimirFactura(String razonSocial, String domicilio, String productos) {
 		 double valorIVA = calcularValorIVA();
-		 System.out.println("*****************************************");
+		 System.out.println("********************************************************************************************************************");
 		 System.out.println("Fecha: " + sdf.format(new Date()));
-		 System.out.println("*****************************************");
+		 System.out.println("********************************************************************************************************************");
 		 System.out.println("Razon Social: "+razonSocial);
 		 System.out.println("Domicilio: "+domicilio);
 		 System.out.println("********************************************************************************************************************");
-		 System.out.println("Cant.\t|Descripcion\t|P. Unit.\t|P.Total");
+		 System.out.println("Cant.\t\t|Descripcion      \t\t\t|P. Unit.\t\t|P.Total");
 		 System.out.println(productos);
 		 System.out.println("********************************************************************************************************************");
 		 System.out.println("VALOR IVA: " + d.format(valorIVA));
